@@ -51,6 +51,5 @@ public class VMenu extends JFrame {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension ventana = this.getPreferredSize();
         setLocation((pantalla.width - ventana.width) / 2,  (pantalla.height - ventana.height) / 2);
-
     }
 }

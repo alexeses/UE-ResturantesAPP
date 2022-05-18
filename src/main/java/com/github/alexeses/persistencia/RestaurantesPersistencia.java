@@ -10,7 +10,6 @@ public class RestaurantesPersistencia {
 
     private final AccesoDB db;
     private ArrayList<Restaurantes> restaurantes = new ArrayList<>();
-
     public RestaurantesPersistencia() {
         db = new AccesoDB();
     }
@@ -55,9 +54,6 @@ public class RestaurantesPersistencia {
 
         return restaurantes;
     }
-    //     public ArrayList<Restaurantes> getAllRestaurantes() {
-    //        ArrayList<Restaurantes> restaurantes = new ArrayList<>();
-
 
     public ArrayList<Restaurantes> getRestaurantesRegion(String reg) {
 
@@ -154,7 +150,6 @@ public class RestaurantesPersistencia {
         } else if (dist != 0 && reg.contains("Todo")) {
             return getRestaurantesDist(dist);
         } else {
-
             String query = "SELECT * FROM "
                     + MessagesConfig.BD_TABLA +
                     " WHERE " + MessagesConfig.COLUMNREGION
@@ -172,7 +167,6 @@ public class RestaurantesPersistencia {
                 pstmt.setString(1, reg); // (pos1, parámetro del método)
                 pstmt.setInt(2, dist); // (pos2, parámetro del método)
                 rs = pstmt.executeQuery(); // ejecutar la query
-                //pstmt.executeQuery();
 
                 while (rs.next()) {
 
@@ -204,6 +198,29 @@ public class RestaurantesPersistencia {
         }
     }
 
+    public void borrarFila(String id) {
+
+        String query = "DELETE FROM " + MessagesConfig.BD_TABLA + " WHERE NOMBRE = ?;";
+
+        Connection con = null;
+        PreparedStatement pstmt = null; // Por que su inicialización deberá ir entre un try y un catch
+        ResultSet rs = null;
+
+        try {
+            con = db.getConexion();
+            pstmt = con.prepareStatement(query); // preparar la query
+            pstmt.setString(1, id); // (pos1, parámetro del método)
+            rs = pstmt.executeQuery(); // ejecutar la query
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            finConnect(con, pstmt, rs);
+        }
+    }
+
     private void finConnect(Connection con, Statement stmt, ResultSet rs) {
         try {
             if (rs != null) rs.close();
@@ -213,6 +230,5 @@ public class RestaurantesPersistencia {
             e.printStackTrace();
         }
     }
-
 
 }

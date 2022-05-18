@@ -31,10 +31,11 @@ public class Main {
             VWelcome vW = new VWelcome();
           //  datos = new RestaurantesPersistencia(); PENDIENTE DE REVISION ¿?
             VConsultas vC = new VConsultas();
+            RestaurantesPersistencia rP = new RestaurantesPersistencia();
 
             FuenteDatos datos = new FuenteDatos();
 
-            CMichelin controlador = new CMichelin(vC, vM, vW, datos);
+            CMichelin controlador = new CMichelin(vC, vM, vW, datos, rP);
 
             vW.setControlador(controlador);
             vC.setControlador(controlador);

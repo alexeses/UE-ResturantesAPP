@@ -3,7 +3,6 @@ package com.github.alexeses.gui;
 import com.github.alexeses.control.CMichelin;
 import com.github.alexeses.model.Restaurantes;
 import com.github.alexeses.persistencia.MessagesConfig;
-import com.github.alexeses.persistencia.RestaurantesPersistencia;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +18,9 @@ public class VConsultas extends JPanel {
     private JTable tblResturantes;
     private JScrollPane scpTable;
     private JPanel mainConsultas;
+    private JPanel jpTabla;
+    private JButton btnBorrar;
+    private JPanel jpTitulo;
     private DefaultTableModel model;
 
 
@@ -31,11 +33,11 @@ public class VConsultas extends JPanel {
         model.setRowCount(0); // Limpia la table
         // model.getDataVector().clear(); // Método 2 para limpiar la table
 
-
         for (Restaurantes r : restaurantes) {
             model.addRow(
-                    new Object[]{r.getNombre(), r.getRegion(), r.getCiudad(), r.getDistintion(), r.getDireccion(),
-                            r.getPrecio_min(), r.getPrecio_max(), r.getCocina(), r.getTelefono(), r.getWeb()});
+                    new Object[]{r.getNombre(), r.getRegion(), r.getCiudad(), r.traducirDist(), r.getDireccion(),
+                            r.traducirPrecio(r.getPrecio_min(), r.getPrecio_max()),
+                            r.getCocina(), r.getTelefono(), r.getWeb()});
         }
 
     }
@@ -48,8 +50,8 @@ public class VConsultas extends JPanel {
         model.addColumn(MessagesConfig.COLUMNCIUDAD);
         model.addColumn(MessagesConfig.COLUMNDISTINCION);
         model.addColumn(MessagesConfig.COLUMNDIRECCION);
-        model.addColumn(MessagesConfig.COLUMNPRMIN);
-        model.addColumn(MessagesConfig.COLUMNPRMAX);
+        model.addColumn(MessagesConfig.COLUMNPR);
+        //model.addColumn(MessagesConfig.COLUMNPRMAX);
         model.addColumn(MessagesConfig.COLUMNCOCINA);
         model.addColumn(MessagesConfig.COLUMNTELEFONO);
         model.addColumn(MessagesConfig.COLUMNWEB);
@@ -62,6 +64,7 @@ public class VConsultas extends JPanel {
         cmbxRegion.addActionListener(controlador);
         cmbxDistincion.addActionListener(controlador);
         btnBuscar.addActionListener(controlador);
+        btnBorrar.addActionListener(controlador);
     }
 
     public JComboBox getCmbxRegion() {
@@ -71,4 +74,25 @@ public class VConsultas extends JPanel {
     public JComboBox getCmbxDistincion() {
         return cmbxDistincion;
     }
+
+    public JTable getTblResturantes() {
+        return tblResturantes;
+    }
+
+
+    public JPanel getJpTabla() {
+        return jpTabla;
+    }
+
+    public String getSelecction() {
+
+        int row = tblResturantes.getSelectedRow();
+        String id = tblResturantes.getModel().getValueAt(row, 0).toString();
+
+        return id;
+
+    }
 }
+
+
+

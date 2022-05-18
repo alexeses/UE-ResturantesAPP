@@ -17,12 +17,14 @@ public class CMichelin implements ActionListener {
     VMenu vM;
     VWelcome vW;
     FuenteDatos datos;
+    RestaurantesPersistencia rp;
 
-    public CMichelin(VConsultas vC, VMenu vM, VWelcome vW, FuenteDatos datos) {
+    public CMichelin(VConsultas vC, VMenu vM, VWelcome vW, FuenteDatos datos, RestaurantesPersistencia rp) {
         this.vC = vC;
         this.vM = vM;
         this.vW = vW;
         this.datos = datos;
+        this.rp = rp;
     }
 
     @Override
@@ -30,26 +32,24 @@ public class CMichelin implements ActionListener {
 
         if (e.getSource() instanceof JButton) {
             if (e.getActionCommand().contains("Buscar")) {
-                    // recuperar datos del filtro
-                    // solicitar a restaurantePersistencia los restaurantes que cumplan con el filtro
-                    // mostrar los restaurantes en la ventana de consultas
-                //     public Restaurantes getRestaurantes(String reg, Integer dist) {
-                //        Restaurantes restaurantes = null;
 
                 String region = vC.getCmbxRegion().getSelectedItem().toString();
                 Integer distincion = vC.getCmbxDistincion().getSelectedIndex();
 
                 vC.updateTable(datos.getSelectRestaurantes(region, distincion));
-                System.out.println("region: " + region + " distincion: " + distincion);
-                System.out.println("restaurantes: " + datos.getSelectRestaurantes(region, distincion));
 
+                if (vC.getTblResturantes().getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(vC, "No se encontraron restaurantes con esos filtros", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+            } else if (e.getActionCommand().contains("Borrar")) {
+                rp.borrarFila(vC.getSelecction());
             }
         }
 
         if (e.getSource() instanceof JMenuItem) {
             if (e.getActionCommand().contains(vM.OPC1)) {
                 vM.cargarPanel(vC);
-                vC.updateTable(datos.getRestaurantes());
 
 
             } else if (e.getActionCommand().contains(vM.OPC2)) {

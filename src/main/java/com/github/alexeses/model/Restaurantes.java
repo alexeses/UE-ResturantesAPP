@@ -4,7 +4,7 @@ public class Restaurantes {
     private final String nombre;
     private final String region;
     private final String ciudad;
-    private final int distintion;
+    private int distintion;
     private final String direccion;
     private final double precio_min;
     private final double precio_max;
@@ -41,6 +41,27 @@ public class Restaurantes {
         return distintion;
     }
 
+    public String traducirDist() {
+        if (distintion == 1) {
+            return "*";
+        } else if (distintion == 2) {
+            return "**";
+        } else if (distintion == 3) {
+            return "***";
+        }
+        return "ERROR";
+    }
+
+    public String traducirPrecio(double min, double max) {
+        double minPrecio = Double.parseDouble(String.valueOf(min));
+        double maxPrecio = Double.parseDouble(String.valueOf(max));
+        if (minPrecio == maxPrecio) {
+            return String.valueOf(minPrecio);
+        } else {
+            return String.valueOf(minPrecio) + " - " + String.valueOf(maxPrecio);
+        }
+    }
+
     public String getDireccion() {
         return direccion;
     }
@@ -68,4 +89,5 @@ public class Restaurantes {
     public void add(Restaurantes restaurantes) {
         restaurantes.add(restaurantes);
     }
+
 }

@@ -11,6 +11,7 @@ public class MessagesConfig {
     public static final String COLUMNDISTINCION = "DISTINCION";
     public static final String COLUMNDIRECCION = "DIRECCION";
     public static final String COLUMNPRMIN = "PRECIO_MIN";
+    public static final String COLUMNPR = "PRECIO";
     public static final String COLUMNPRMAX = "PRECIO_MAX";
     public static final String COLUMNCOCINA = "COCINA";
     public static final String COLUMNTELEFONO = "TELEFONO";

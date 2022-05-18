@@ -9,6 +9,7 @@ public class FuenteDatos {
     RestaurantesPersistencia restaurantesPersistencia;
 
     private ArrayList<Restaurantes> restaurantes;
+    private Restaurantes restaurante;
 
     public FuenteDatos() {
         restaurantes = new ArrayList<Restaurantes>();

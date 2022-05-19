@@ -18,12 +18,10 @@ public class VMenu extends JFrame {
     public final static int ANCHO = 800;
     public final static int ALTO = 600;
 
-
     public VMenu() {
         add(mainMenu);
         initComponents();
     }
-
     public void cargarPanel(JPanel panel) {
         scrPanel.setViewportView(panel);
     }

@@ -89,5 +89,4 @@ public class Restaurantes {
     public void add(Restaurantes restaurantes) {
         restaurantes.add(restaurantes);
     }
-
 }

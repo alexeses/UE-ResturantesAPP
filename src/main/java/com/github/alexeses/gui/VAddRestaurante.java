@@ -94,4 +94,17 @@ public class VAddRestaurante extends JPanel {
     public JTextField getTxtWeb() {
         return txtWeb;
     }
+
+    public void clearFields() {
+        txtNombre.setText("");
+        txtCiudad.setText("");
+        txtDireccion.setText("");
+        txtPrMin.setText("");
+        txtPrMax.setText("");
+        txtTelefono.setText("");
+        txtWeb.setText("");
+        cmbCocina.setSelectedIndex(0);
+        cmbxRegion.setSelectedIndex(0);
+        spnDistincion.setValue(0);
+    }
 }

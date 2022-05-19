@@ -27,7 +27,6 @@ public class VConsultas extends JPanel {
     public VConsultas() {
         add(mainConsultas);
         createTable();
-
     }
     public void updateTable(ArrayList<Restaurantes> restaurantes) {
         model.setRowCount(0); // Limpia la table
@@ -59,7 +58,6 @@ public class VConsultas extends JPanel {
         tblResturantes.setModel(model);
     }
 
-
     public void setControlador(CMichelin controlador) {
         cmbxRegion.addActionListener(controlador);
         cmbxDistincion.addActionListener(controlador);
@@ -89,8 +87,9 @@ public class VConsultas extends JPanel {
         int row = tblResturantes.getSelectedRow();
         String id = tblResturantes.getModel().getValueAt(row, 0).toString();
 
-        return id;
+        System.out.println(id);
 
+        return id;
     }
 }
 

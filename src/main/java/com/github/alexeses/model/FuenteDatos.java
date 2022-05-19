@@ -1,4 +1,4 @@
-package com.github.alexeses.model;
+/* package com.github.alexeses.model;
 
 import com.github.alexeses.persistencia.RestaurantesPersistencia;
 
@@ -27,7 +27,6 @@ public class FuenteDatos {
         return restaurantes;
     }
 
-
     public ArrayList<Restaurantes> getSelectRestaurantes(String reg, Integer dist) {
 
         RestaurantesPersistencia restaurantesPersistencia = new RestaurantesPersistencia();
@@ -38,3 +37,4 @@ public class FuenteDatos {
         return restaurantes;
     }
 }
+*/

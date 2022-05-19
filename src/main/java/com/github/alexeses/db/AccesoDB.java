@@ -13,7 +13,7 @@ public class AccesoDB {
     private String driver;
     private String url;
 
-    public AccesoDB() {
+    public AccesoDB() throws RuntimeException {
         //driver ="org.sqlite.JDBC";
         //url = "jdbc:sqlite:db/data.db";
         Properties prop = new Properties();
@@ -28,7 +28,7 @@ public class AccesoDB {
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         } finally {
             try {
                 if (is != null) is.close();

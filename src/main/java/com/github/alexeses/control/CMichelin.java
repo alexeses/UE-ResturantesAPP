@@ -4,13 +4,13 @@ import com.github.alexeses.gui.VAddRestaurante;
 import com.github.alexeses.gui.VConsultas;
 import com.github.alexeses.gui.VMenu;
 import com.github.alexeses.gui.VWelcome;
-//import com.github.alexeses.model.FuenteDatos;
 import com.github.alexeses.model.Restaurantes;
 import com.github.alexeses.persistencia.RestaurantesPersistencia;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 
 public class CMichelin implements ActionListener {
@@ -21,7 +21,6 @@ public class CMichelin implements ActionListener {
     //FuenteDatos datos;
     VAddRestaurante vAR;
     RestaurantesPersistencia rp;
-    Restaurantes r;
 
 
     public CMichelin(VConsultas vC, VMenu vM, VWelcome vW, VAddRestaurante vAR, RestaurantesPersistencia rp) {
@@ -38,7 +37,7 @@ public class CMichelin implements ActionListener {
         if (e.getSource() instanceof JButton) {
             if (e.getActionCommand().contains("Buscar")) {
 
-                String region = vC.getCmbxRegion().getSelectedItem().toString();
+                String region = Objects.requireNonNull(vC.getCmbxRegion().getSelectedItem()).toString();
                 Integer distincion = vC.getCmbxDistincion().getSelectedIndex();
 
                 vC.updateTable(rp.getRestaurantes(region, distincion));
@@ -69,46 +68,43 @@ public class CMichelin implements ActionListener {
         }
 
         if (e.getSource() instanceof JMenuItem) {
-            if (e.getActionCommand().contains(vM.OPC1)) {
+            if (e.getActionCommand().contains(VMenu.OPC1)) {
                 vM.cargarPanel(vC);
-            } else if (e.getActionCommand().contains(vM.OPC2)) {
+            } else if (e.getActionCommand().contains(VMenu.OPC2)) {
                 vM.cargarPanel(vAR);
-                System.out.println("Consulta 2");
-            } else if (e.getActionCommand().contains(vM.OPC3)) {
+            } else if (e.getActionCommand().contains(VMenu.OPC3)) {
                 System.out.println("Consulta 3");
             }
         }
     }
 
     private void guardarRestaurante() {
-
-        String nombre = null;
+        String nombre;
         String cocina;
         String region;
-        String ciudad = null;
+        String ciudad;
         String direccion;
-        double precioMin = 0.0;
-        double precioMax = 0.0;
+        double precioMin;
+        double precioMax;
         int distincion;
         String web;
-        String telefono = null;
-        boolean next = true;
+        String telefono;
 
-        while (next) {
+        while (true) {
 
             if (vAR.getTxtNombre().getText().isEmpty()) {
                 JOptionPane.showMessageDialog(vAR, "El nombre del restaurante no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
-                next = false;
+                break;
             } else {
                 nombre = vAR.getTxtNombre().getText();
             }
 
-            cocina = vAR.getCmbCocina().getSelectedItem().toString();
-            region = vAR.getCmbxRegion().getSelectedItem().toString();
+            cocina = Objects.requireNonNull(vAR.getCmbCocina().getSelectedItem()).toString();
+            region = Objects.requireNonNull(vAR.getCmbxRegion().getSelectedItem()).toString();
 
             if (vAR.getTxtCiudad().getText().isEmpty()) {
                 JOptionPane.showMessageDialog(vAR, "La ciudad no puede estar vacía", "Error", JOptionPane.ERROR_MESSAGE);
-                next = false;
+                break;
             } else {
                 ciudad = vAR.getTxtCiudad().getText();
             }
@@ -117,19 +113,19 @@ public class CMichelin implements ActionListener {
 
             if (vAR.getTxtPrMin().getText().isEmpty() || vAR.getTxtPrMax().getText().isEmpty()) {
                 JOptionPane.showMessageDialog(vAR, "El precio mínimo y máximo no pueden estar vacíos", "Error", JOptionPane.ERROR_MESSAGE);
-                next = false;
+                break;
             } else if (Integer.parseInt(vAR.getTxtPrMin().getText()) > Integer.parseInt(vAR.getTxtPrMax().getText())) {
                 JOptionPane.showMessageDialog(vAR, "El precio mínimo no puede ser mayor que el precio máximo", "Error", JOptionPane.ERROR_MESSAGE);
-                next = false;
+                break;
             } else if (Integer.parseInt(vAR.getTxtPrMin().getText()) < 0 || Integer.parseInt(vAR.getTxtPrMax().getText()) < 0) {
                 JOptionPane.showMessageDialog(vAR, "El precio mínimo y máximo no pueden ser negativos", "Error", JOptionPane.ERROR_MESSAGE);
-                next = false;
+                break;
             } else if (Integer.parseInt(vAR.getTxtPrMin().getText()) == 0 || Integer.parseInt(vAR.getTxtPrMax().getText()) == 0) {
                 JOptionPane.showMessageDialog(vAR, "El precio mínimo y máximo no pueden ser 0", "Error", JOptionPane.ERROR_MESSAGE);
-                next = false;
-            } else if (vAR.getTxtPrMin().getText().matches("\\d+") && !vAR.getTxtPrMax().getText().matches("\\d+") || vAR.getTxtPrMax().getText().matches("[0-9]+") && !vAR.getTxtPrMin().getText().matches("[0-9]+")) {
+                break;
+            } else if (vAR.getTxtPrMin().getText().matches("\\d+") && !vAR.getTxtPrMax().getText().matches("\\d+") || vAR.getTxtPrMax().getText().matches("\\d+") && !vAR.getTxtPrMin().getText().matches("\\d+")) {
                 JOptionPane.showMessageDialog(vAR, "El precio mínimo y máximo deben ser números", "Error", JOptionPane.ERROR_MESSAGE);
-                next = false;
+                break;
             } else {
                 precioMin = Integer.parseInt(vAR.getTxtPrMin().getText());
                 precioMax = Integer.parseInt(vAR.getTxtPrMax().getText());
@@ -140,10 +136,10 @@ public class CMichelin implements ActionListener {
 
             if (!vAR.getTxtTelefono().getText().matches("\\d+")) {
                 JOptionPane.showMessageDialog(vAR, "El teléfono debe ser un número", "Error", JOptionPane.ERROR_MESSAGE);
-                next = false;
+                break;
             } else if (vAR.getTxtTelefono().getText().length() != 9) {
                 JOptionPane.showMessageDialog(vAR, "El teléfono debe tener 9 dígitos", "Error", JOptionPane.ERROR_MESSAGE);
-                next = false;
+                break;
             } else {
                 telefono = vAR.getTxtTelefono().getText();
             }

@@ -44,9 +44,7 @@ public class RestaurantesPersistencia {
                 restaurantes.add(new Restaurantes(nombre, region, ciudad, distincion, direccion, precio_min, precio_max, cocina, telefono, web));
             }
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         } finally {
             finConnect(con, stmt, rs);
@@ -86,9 +84,7 @@ public class RestaurantesPersistencia {
                 restaurantes.add(new Restaurantes(nombre, region, ciudad, distincion, direccion, precio_min, precio_max, cocina, telefono, web));
             }
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         } finally {
             finConnect(con, stmt, rs);
@@ -128,9 +124,7 @@ public class RestaurantesPersistencia {
                 restaurantes.add(new Restaurantes(nombre, region, ciudad, distincion, direccion, precio_min, precio_max, cocina, telefono, web));
             }
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         } finally {
             finConnect(con, stmt, rs);
@@ -184,9 +178,7 @@ public class RestaurantesPersistencia {
 
                 }
 
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
             } finally {
                 finConnect(con, pstmt, rs);
@@ -214,7 +206,6 @@ public class RestaurantesPersistencia {
 
         Connection con = null;
         PreparedStatement pstmt = null; // Por que su inicialización deberá ir entre un try y un catch
-        ResultSet rs = null;
 
         try {
             con = db.getConexion();
@@ -230,12 +221,10 @@ public class RestaurantesPersistencia {
             pstmt.setString(9, rest.getTelefono()); // (pos9, parámetro del método)
             pstmt.setString(10, rest.getWeb()); // (pos10, parámetro del método)
             pstmt.executeUpdate(); // ejecutar la query
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         } finally {
-            finConnect(con, pstmt, rs);
+            finConnect(con, pstmt, null);
         }
 
     }
@@ -246,7 +235,6 @@ public class RestaurantesPersistencia {
 
         Connection con = null;
         PreparedStatement pstmt = null; // Por que su inicialización deberá ir entre un try y un catch
-        ResultSet rs = null;
 
         try {
             con = db.getConexion();
@@ -254,12 +242,10 @@ public class RestaurantesPersistencia {
             pstmt.setString(1, id); // (pos1, parámetro del método)
             pstmt.executeUpdate(); // ejecutar la query
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         } finally {
-            finConnect(con, pstmt, rs);
+            finConnect(con, pstmt, null);
         }
     }
 
@@ -276,16 +262,10 @@ public class RestaurantesPersistencia {
             pstmt = con.prepareStatement(query); // preparar la query
             pstmt.setString(1, rest); // (pos1, parámetro del método)
             rs = pstmt.executeQuery(); // ejecutar la query
-            if(rs.next()){
-                existe = true;
-            } else {
-                existe = false;
-            }
-        } catch (ClassNotFoundException e) {
+            existe = rs.next();
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
         } finally {
             finConnect(con, pstmt, rs);
         }

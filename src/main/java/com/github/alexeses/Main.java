@@ -37,7 +37,6 @@ public class Main {
             // (VConsultas vC, VMenu vM, VWelcome vW, FuenteDatos datos, VAddRestaurante vAR, RestaurantesPersistencia rp) {
             CMichelin controlador = new CMichelin(vC, vM, vW, vAR, rp);
 
-            vW.setControlador(controlador);
             vC.setControlador(controlador);
             vM.setControlador(controlador);
             vAR.setControlador(controlador);

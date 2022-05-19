@@ -4,7 +4,7 @@ public class Restaurantes {
     private final String nombre;
     private final String region;
     private final String ciudad;
-    private int distintion;
+    private final int distintion;
     private final String direccion;
     private final double precio_min;
     private final double precio_max;
@@ -58,7 +58,7 @@ public class Restaurantes {
         if (minPrecio == maxPrecio) {
             return String.valueOf(minPrecio);
         } else {
-            return String.valueOf(minPrecio) + " - " + String.valueOf(maxPrecio);
+            return minPrecio + " - " + maxPrecio;
         }
     }
 

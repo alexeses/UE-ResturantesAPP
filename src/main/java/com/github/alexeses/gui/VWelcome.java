@@ -1,7 +1,5 @@
 package com.github.alexeses.gui;
 
-import com.github.alexeses.control.CMichelin;
-
 import javax.swing.*;
 
 public class VWelcome extends JPanel {
@@ -13,7 +11,4 @@ public class VWelcome extends JPanel {
         add(mainWelcome);
     }
 
-    public void setControlador(CMichelin controlador) {
-        // TODO implement here
-    }
 }

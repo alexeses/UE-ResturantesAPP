@@ -43,7 +43,7 @@ public class Main {
             vW.setControlador(controlador);
             vC.setControlador(controlador);
             vM.setControlador(controlador);
-
+            vAR.setControlador(controlador);
 
             vM.setVisible(true);
             vM.cargarPanel(vW);

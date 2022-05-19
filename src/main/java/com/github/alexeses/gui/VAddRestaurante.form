@@ -95,7 +95,7 @@
           <text value="Direccion"/>
         </properties>
       </component>
-      <component id="be36c" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+      <component id="be36c" class="javax.swing.JTextField" binding="txtDireccion">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -111,7 +111,7 @@
           <text value="Distincion"/>
         </properties>
       </component>
-      <component id="1312a" class="javax.swing.JSpinner" binding="spinner1" default-binding="true">
+      <component id="1312a" class="javax.swing.JSpinner" binding="spnDistincion">
         <constraints>
           <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="168" height="30"/>
@@ -135,7 +135,7 @@
           <text value="Máximo"/>
         </properties>
       </component>
-      <component id="ef146" class="javax.swing.JTextField" binding="textField3" default-binding="true">
+      <component id="ef146" class="javax.swing.JTextField" binding="txtPrMax">
         <constraints>
           <grid row="4" column="3" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -143,7 +143,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="63680" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+      <component id="63680" class="javax.swing.JTextField" binding="txtPrMin">
         <constraints>
           <grid row="3" column="4" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -159,7 +159,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="a5599" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+      <component id="a5599" class="javax.swing.JComboBox" binding="cmbCocina">
         <constraints>
           <grid row="1" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>

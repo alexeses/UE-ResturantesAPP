@@ -29,20 +29,7 @@ public class RestaurantesPersistencia {
             stmt = con.createStatement(); // crear un statement para realizar la consulta
             rs = stmt.executeQuery(query); // ejecutar la query
 
-            while (rs.next()) {
-                String nombre = rs.getString(MessagesConfig.COLUMNNOMBRE);
-                String region = rs.getString(MessagesConfig.COLUMNREGION);
-                String ciudad = rs.getString(MessagesConfig.COLUMNCIUDAD);
-                int distincion = rs.getInt(MessagesConfig.COLUMNDISTINCION);
-                String direccion = rs.getString(MessagesConfig.COLUMNDIRECCION);
-                double precio_min = rs.getDouble(MessagesConfig.COLUMNPRMIN);
-                double precio_max = rs.getDouble(MessagesConfig.COLUMNPRMAX);
-                String cocina = rs.getString(MessagesConfig.COLUMNCOCINA);
-                String telefono = rs.getString(MessagesConfig.COLUMNTELEFONO);
-                String web = rs.getString(MessagesConfig.COLUMNWEB);
-
-                restaurantes.add(new Restaurantes(nombre, region, ciudad, distincion, direccion, precio_min, precio_max, cocina, telefono, web));
-            }
+            getInfo(rs);
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -53,41 +40,45 @@ public class RestaurantesPersistencia {
         return restaurantes;
     }
 
+    private void getInfo(ResultSet rs) throws SQLException {
+        while (rs.next()) {
+            String nombre = rs.getString(MessagesConfig.COLUMNNOMBRE);
+            String region = rs.getString(MessagesConfig.COLUMNREGION);
+            String ciudad = rs.getString(MessagesConfig.COLUMNCIUDAD);
+            int distincion = rs.getInt(MessagesConfig.COLUMNDISTINCION);
+            String direccion = rs.getString(MessagesConfig.COLUMNDIRECCION);
+            double precio_min = rs.getDouble(MessagesConfig.COLUMNPRMIN);
+            double precio_max = rs.getDouble(MessagesConfig.COLUMNPRMAX);
+            String cocina = rs.getString(MessagesConfig.COLUMNCOCINA);
+            String telefono = rs.getString(MessagesConfig.COLUMNTELEFONO);
+            String web = rs.getString(MessagesConfig.COLUMNWEB);
+
+            restaurantes.add(new Restaurantes(nombre, region, ciudad, distincion, direccion, precio_min, precio_max, cocina, telefono, web));
+        }
+    }
+
     public ArrayList<Restaurantes> getRestaurantesRegion(String reg) {
 
         restaurantes = new ArrayList<>();
 
-        String query = "SELECT * FROM "
-                + MessagesConfig.BD_TABLA + " WHERE REGION = '" + reg + "';";
+        String query = "SELECT * FROM " + MessagesConfig.BD_TABLA + " WHERE REGION = ?;";
 
         Connection con = null;
-        Statement stmt = null;
+        PreparedStatement pstmt = null;
         ResultSet rs = null;
 
         try {
             con = db.getConexion();
-            stmt = con.createStatement(); // crear un statement para realizar la consulta
-            rs = stmt.executeQuery(query); // ejecutar la query
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1, reg);
+            rs = pstmt.executeQuery();
 
-            while (rs.next()) {
-                String nombre = rs.getString(MessagesConfig.COLUMNNOMBRE);
-                String region = rs.getString(MessagesConfig.COLUMNREGION);
-                String ciudad = rs.getString(MessagesConfig.COLUMNCIUDAD);
-                int distincion = rs.getInt(MessagesConfig.COLUMNDISTINCION);
-                String direccion = rs.getString(MessagesConfig.COLUMNDIRECCION);
-                double precio_min = rs.getDouble(MessagesConfig.COLUMNPRMIN);
-                double precio_max = rs.getDouble(MessagesConfig.COLUMNPRMAX);
-                String cocina = rs.getString(MessagesConfig.COLUMNCOCINA);
-                String telefono = rs.getString(MessagesConfig.COLUMNTELEFONO);
-                String web = rs.getString(MessagesConfig.COLUMNWEB);
-
-                restaurantes.add(new Restaurantes(nombre, region, ciudad, distincion, direccion, precio_min, precio_max, cocina, telefono, web));
-            }
+            getInfo(rs);
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         } finally {
-            finConnect(con, stmt, rs);
+            finConnect(con, pstmt, rs);
         }
 
         return restaurantes;
@@ -98,36 +89,24 @@ public class RestaurantesPersistencia {
         restaurantes = new ArrayList<>();
 
         String query = "SELECT * FROM "
-                + MessagesConfig.BD_TABLA + " WHERE DISTINCION = '" + dist + "';";
+                + MessagesConfig.BD_TABLA + " WHERE DISTINCION = ?;";
 
         Connection con = null;
-        Statement stmt = null;
+        PreparedStatement pstmt = null;
         ResultSet rs = null;
 
         try {
             con = db.getConexion();
-            stmt = con.createStatement(); // crear un statement para realizar la consulta
-            rs = stmt.executeQuery(query); // ejecutar la query
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, dist);
+            rs = pstmt.executeQuery();
 
-            while (rs.next()) {
-                String nombre = rs.getString(MessagesConfig.COLUMNNOMBRE);
-                String region = rs.getString(MessagesConfig.COLUMNREGION);
-                String ciudad = rs.getString(MessagesConfig.COLUMNCIUDAD);
-                int distincion = rs.getInt(MessagesConfig.COLUMNDISTINCION);
-                String direccion = rs.getString(MessagesConfig.COLUMNDIRECCION);
-                double precio_min = rs.getDouble(MessagesConfig.COLUMNPRMIN);
-                double precio_max = rs.getDouble(MessagesConfig.COLUMNPRMAX);
-                String cocina = rs.getString(MessagesConfig.COLUMNCOCINA);
-                String telefono = rs.getString(MessagesConfig.COLUMNTELEFONO);
-                String web = rs.getString(MessagesConfig.COLUMNWEB);
-
-                restaurantes.add(new Restaurantes(nombre, region, ciudad, distincion, direccion, precio_min, precio_max, cocina, telefono, web));
-            }
+            getInfo(rs);
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         } finally {
-            finConnect(con, stmt, rs);
+            finConnect(con, pstmt, rs);
         }
 
         return restaurantes;
@@ -161,22 +140,7 @@ public class RestaurantesPersistencia {
                 pstmt.setInt(2, dist); // (pos2, parámetro del método)
                 rs = pstmt.executeQuery(); // ejecutar la query
 
-                while (rs.next()) {
-
-                    String nombre = rs.getString(MessagesConfig.COLUMNNOMBRE);
-                    String region = rs.getString(MessagesConfig.COLUMNREGION);
-                    String ciudad = rs.getString(MessagesConfig.COLUMNCIUDAD);
-                    int distincion = rs.getInt(MessagesConfig.COLUMNDISTINCION);
-                    String direccion = rs.getString(MessagesConfig.COLUMNDIRECCION);
-                    double precio_min = rs.getDouble(MessagesConfig.COLUMNPRMIN);
-                    double precio_max = rs.getDouble(MessagesConfig.COLUMNPRMAX);
-                    String cocina = rs.getString(MessagesConfig.COLUMNCOCINA);
-                    String telefono = rs.getString(MessagesConfig.COLUMNTELEFONO);
-                    String web = rs.getString(MessagesConfig.COLUMNWEB);
-
-                    restaurantes.add(new Restaurantes(nombre, region, ciudad, distincion, direccion, precio_min, precio_max, cocina, telefono, web));
-
-                }
+                getInfo(rs);
 
             } catch (ClassNotFoundException | SQLException e) {
                 e.printStackTrace();
@@ -323,49 +287,27 @@ public class RestaurantesPersistencia {
         restaurantes = new ArrayList<>();
 
         String query = "SELECT * FROM "
-                + MessagesConfig.BD_TABLA + " WHERE NOMBRE = '" + nom + "';";
+                + MessagesConfig.BD_TABLA + " WHERE NOMBRE = ?;";
 
         Connection con = null;
-        Statement stmt = null;
+        PreparedStatement pstmt = null;
         ResultSet rs = null;
 
         try {
             con = db.getConexion();
-            stmt = con.createStatement(); // crear un statement para realizar la consulta
-            rs = stmt.executeQuery(query); // ejecutar la query
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1, nom);
+            rs = pstmt.executeQuery();
 
-            while (rs.next()) {
-                String nombre = rs.getString(MessagesConfig.COLUMNNOMBRE);
-                String region = rs.getString(MessagesConfig.COLUMNREGION);
-                String ciudad = rs.getString(MessagesConfig.COLUMNCIUDAD);
-                int distincion = rs.getInt(MessagesConfig.COLUMNDISTINCION);
-                String direccion = rs.getString(MessagesConfig.COLUMNDIRECCION);
-                double precio_min = rs.getDouble(MessagesConfig.COLUMNPRMIN);
-                double precio_max = rs.getDouble(MessagesConfig.COLUMNPRMAX);
-                String cocina = rs.getString(MessagesConfig.COLUMNCOCINA);
-                String telefono = rs.getString(MessagesConfig.COLUMNTELEFONO);
-                String web = rs.getString(MessagesConfig.COLUMNWEB);
-
-                restaurantes.add(new Restaurantes(nombre, region, ciudad, distincion, direccion, precio_min, precio_max, cocina, telefono, web));
-            }
+            getInfo(rs);
 
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         } finally {
-            finConnect(con, stmt, rs);
+            finConnect(con, pstmt, rs);
         }
 
         return restaurantes;
-    }
-
-    private void finConnect(Connection con, Statement stmt, ResultSet rs) {
-        try {
-            if (rs != null) rs.close();
-            if (stmt != null) stmt.close();
-            if (con != null) con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     public void modificarRestaurante(String nombre, String region, String ciudad, int distincion, String direccion, double precioMin, double precioMax, String cocina, String telefono, String web) {
@@ -401,6 +343,16 @@ public class RestaurantesPersistencia {
             e.printStackTrace();
         } finally {
             finConnect(con, stmt, null);
+        }
+    }
+
+    private void finConnect(Connection con, Statement stmt, ResultSet rs) {
+        try {
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+            if (con != null) con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

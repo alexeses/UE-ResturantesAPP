@@ -1,8 +1,10 @@
 package com.github.alexeses.gui;
 
 import com.github.alexeses.control.CMichelin;
+import com.github.alexeses.persistencia.RestaurantesPersistencia;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class VAddRestaurante extends JPanel {
     private JLabel lblTitulo;
@@ -29,12 +31,12 @@ public class VAddRestaurante extends JPanel {
     private JButton btnGuardar;
     private JButton btnBorrar;
     private JPanel mainAdd;
+    private RestaurantesPersistencia rP = new RestaurantesPersistencia();
 
     public VAddRestaurante() {
         add(mainAdd);
         config();
     }
-
 
     public void setControlador(CMichelin controlador) {
         btnGuardar.addActionListener(controlador);
@@ -43,6 +45,17 @@ public class VAddRestaurante extends JPanel {
 
     public void config() {
         spnDistincion.setModel(new SpinnerNumberModel(0, 0, 3, 1)); // Mínimo y máximo
+        ArrayList<String> regiones = rP.getRegiones();
+
+        for (String r : regiones) {
+            cmbxRegion.addItem(r);
+        }
+
+        ArrayList<String> cocinas = rP.getCocinas();
+
+        for (String c : cocinas) {
+            cmbCocina.addItem(c);
+        }
     }
 
     public void borrarCampos() {

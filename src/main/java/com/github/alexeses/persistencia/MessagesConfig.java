@@ -16,4 +16,8 @@ public class MessagesConfig {
     public static final String COLUMNCOCINA = "COCINA";
     public static final String COLUMNTELEFONO = "TELEFONO";
     public static final String COLUMNWEB = "WEB";
+    public static final String[] REGION = {"Andalucía", "Aragón", "Asturias", "Islas Baleares", "Cantabria",
+            "Islas Canarias", "Castilla - La Mancha", "Castilla y León", "Cataluña", "Galicia", "Extremadura",
+            "Madrid", "Murcia", "Navarra", "Pais Vasco", "La Rioja", "Comunidad Valenciana"};
+
 }

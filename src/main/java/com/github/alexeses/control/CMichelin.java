@@ -1,9 +1,6 @@
 package com.github.alexeses.control;
 
-import com.github.alexeses.gui.VAddRestaurante;
-import com.github.alexeses.gui.VConsultas;
-import com.github.alexeses.gui.VMenu;
-import com.github.alexeses.gui.VWelcome;
+import com.github.alexeses.gui.*;
 import com.github.alexeses.model.Restaurantes;
 import com.github.alexeses.persistencia.RestaurantesPersistencia;
 
@@ -20,14 +17,16 @@ public class CMichelin implements ActionListener {
     VWelcome vW;
     //FuenteDatos datos;
     VAddRestaurante vAR;
+    VModRestaurante vMR;
     RestaurantesPersistencia rp;
 
 
-    public CMichelin(VConsultas vC, VMenu vM, VWelcome vW, VAddRestaurante vAR, RestaurantesPersistencia rp) {
+    public CMichelin(VConsultas vC, VMenu vM, VWelcome vW, VAddRestaurante vAR, VModRestaurante vMR, RestaurantesPersistencia rp) {
         this.vC = vC;
         this.vM = vM;
         this.vW = vW;
         this.vAR = vAR;
+        this.vMR = vMR;
         this.rp = rp;
     }
 
@@ -64,17 +63,101 @@ public class CMichelin implements ActionListener {
                 guardarRestaurante();
             } else if (e.getActionCommand().contains("Limpiar")) {
                 vAR.clearFields();
+            } else if (e.getActionCommand().contains("Encontrar")) {
+                String nombre = vMR.getTxtNombre().getText();
+
+                if (nombre.isEmpty()) {
+                    JOptionPane.showMessageDialog(vMR, "No se ha introducido ningún nombre", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    vMR.rellenarRest(nombre);
+                }
+            } else if (e.getActionCommand().contains("Cancelar")) {
+                    vMR.clearAllFields();
+            } else if (e.getActionCommand().contains("Modificar")) {
+                modificarRestaurante();
             }
         }
 
         if (e.getSource() instanceof JMenuItem) {
             if (e.getActionCommand().contains(VMenu.OPC1)) {
                 vM.cargarPanel(vC);
+                rp.getRegiones();
             } else if (e.getActionCommand().contains(VMenu.OPC2)) {
                 vM.cargarPanel(vAR);
             } else if (e.getActionCommand().contains(VMenu.OPC3)) {
-                System.out.println("Consulta 3");
+                vM.cargarPanel(vMR);
             }
+        }
+    }
+
+    private void modificarRestaurante() {
+        String nombre;
+        String cocina;
+        String region;
+        String ciudad;
+        String direccion;
+        double precioMin;
+        double precioMax;
+        int distincion;
+        String web;
+        String telefono;
+
+        while (true) {
+            if (vMR.getTxtNombre().getText().isEmpty()) {
+                JOptionPane.showMessageDialog(vMR, "El nombre del restaurante no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            } else {
+                nombre = vMR.getTxtNombre().getText();
+            }
+            cocina = Objects.requireNonNull(vMR.getCmbxCocina().getSelectedItem()).toString();
+            region = Objects.requireNonNull(vMR.getCmbxRegion().getSelectedItem()).toString();
+
+            if (vMR.getTxtCiudad().getText().isEmpty()) {
+                JOptionPane.showMessageDialog(vMR, "La ciudad no puede estar vacía", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            } else {
+                ciudad = vMR.getTxtCiudad().getText();
+            }
+
+            direccion = vMR.getTxtDireccion().getText();
+
+            if (vMR.getTxtPrMin().getText().isEmpty() || vMR.getTxtPRMax().getText().isEmpty()) {
+                JOptionPane.showMessageDialog(vMR, "El precio mínimo y máximo no pueden estar vacíos", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            } else if (Double.parseDouble(vMR.getTxtPrMin().getText()) > Double.parseDouble(vMR.getTxtPRMax().getText())) {
+                JOptionPane.showMessageDialog(vMR, "El precio mínimo no puede ser mayor que el precio máximo", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            } else if (Double.parseDouble(vMR.getTxtPrMin().getText()) < 0 || Double.parseDouble(vMR.getTxtPRMax().getText()) < 0) {
+                JOptionPane.showMessageDialog(vMR, "El precio mínimo y máximo no pueden ser negativos", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            } else if (Double.parseDouble(vMR.getTxtPrMin().getText()) == 0 || Double.parseDouble(vMR.getTxtPRMax().getText()) == 0) {
+                JOptionPane.showMessageDialog(vMR, "El precio mínimo y máximo no pueden ser 0", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            } else if (vMR.getTxtPrMin().getText().matches("\\d+") && !vMR.getTxtPRMax().getText().matches("\\d+") || vMR.getTxtPRMax().getText().matches("\\d+") && !vMR.getTxtPrMin().getText().matches("\\d+")) {
+                JOptionPane.showMessageDialog(vMR, "El precio mínimo y máximo deben ser números", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            } else {
+                precioMin = Double.parseDouble(vMR.getTxtPrMin().getText());
+                precioMax = Double.parseDouble(vMR.getTxtPRMax().getText());
+            }
+
+            distincion = (Integer) vMR.getSpnDistincion().getValue();
+            web = vMR.getTxtWeb().getText();
+
+            if (!vMR.getTxtTelefono().getText().matches("\\d+")) {
+                JOptionPane.showMessageDialog(vMR, "El teléfono debe ser un número", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            } else if (vMR.getTxtTelefono().getText().length() != 9) {
+                JOptionPane.showMessageDialog(vMR, "El teléfono debe tener 9 dígitos", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            } else {
+                telefono = vMR.getTxtTelefono().getText();
+            }
+
+            rp.modificarRestaurante(nombre, region, ciudad, distincion, direccion, precioMin, precioMax, cocina, telefono, web);
+            JOptionPane.showMessageDialog(vMR, "Restaurante modificado correctamente", "Modificación", JOptionPane.INFORMATION_MESSAGE);
+            vMR.clearFields();
+
         }
     }
 

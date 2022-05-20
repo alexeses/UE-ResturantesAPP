@@ -1,13 +1,8 @@
 package com.github.alexeses;
 
-import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
-import com.formdev.flatlaf.FlatLightLaf;
 import com.github.alexeses.control.CMichelin;
-import com.github.alexeses.gui.VAddRestaurante;
-import com.github.alexeses.gui.VConsultas;
-import com.github.alexeses.gui.VWelcome;
-import com.github.alexeses.gui.VMenu;
+import com.github.alexeses.gui.*;
 import com.github.alexeses.persistencia.RestaurantesPersistencia;
 
 import javax.swing.*;
@@ -30,16 +25,17 @@ public class Main {
             VMenu vM = new VMenu();
             VWelcome vW = new VWelcome();
           //  datos = new RestaurantesPersistencia(); PENDIENTE DE REVISION ¿?
+            VModRestaurante vMR = new VModRestaurante();
             VConsultas vC = new VConsultas();
             VAddRestaurante vAR = new VAddRestaurante();
             RestaurantesPersistencia rp = new RestaurantesPersistencia();
 
-            // (VConsultas vC, VMenu vM, VWelcome vW, FuenteDatos datos, VAddRestaurante vAR, RestaurantesPersistencia rp) {
-            CMichelin controlador = new CMichelin(vC, vM, vW, vAR, rp);
+            CMichelin controlador = new CMichelin(vC, vM, vW, vAR, vMR, rp);
 
             vC.setControlador(controlador);
             vM.setControlador(controlador);
             vAR.setControlador(controlador);
+            vMR.setControlador(controlador);
 
             vM.setVisible(true);
             vM.cargarPanel(vW);

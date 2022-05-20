@@ -272,6 +272,92 @@ public class RestaurantesPersistencia {
         return existe;
     }
 
+    public ArrayList<String> getRegiones() {
+        String query = "SELECT DISTINCT REGION FROM " + MessagesConfig.BD_TABLA + ";";
+
+        Connection con = null;
+        Statement stmt = null; // Por que su inicialización deberá ir entre un try y un catch
+        ResultSet rs = null;
+        ArrayList<String> regiones = new ArrayList<>();
+
+        try {
+            con = db.getConexion();
+            stmt = con.createStatement(); // preparar la query
+            rs = stmt.executeQuery(query); // ejecutar la query
+            while (rs.next()) {
+                regiones.add(rs.getString("REGION"));
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            finConnect(con, stmt, rs);
+        }
+        return regiones;
+    }
+
+    public ArrayList<String> getCocinas() {
+        String query = "SELECT DISTINCT COCINA FROM " + MessagesConfig.BD_TABLA + ";";
+
+        Connection con = null;
+        Statement stmt = null; // Por que su inicialización deberá ir entre un try y un catch
+        ResultSet rs = null;
+        ArrayList<String> cocinas = new ArrayList<>();
+
+        try {
+            con = db.getConexion();
+            stmt = con.createStatement(); // preparar la query
+            rs = stmt.executeQuery(query); // ejecutar la query
+            while (rs.next()) {
+                cocinas.add(rs.getString("COCINA"));
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            finConnect(con, stmt, rs);
+        }
+        return cocinas;
+    }
+
+    public ArrayList<Restaurantes> getRestNombre(String nom) {
+
+        restaurantes = new ArrayList<>();
+
+        String query = "SELECT * FROM "
+                + MessagesConfig.BD_TABLA + " WHERE NOMBRE = '" + nom + "';";
+
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            con = db.getConexion();
+            stmt = con.createStatement(); // crear un statement para realizar la consulta
+            rs = stmt.executeQuery(query); // ejecutar la query
+
+            while (rs.next()) {
+                String nombre = rs.getString(MessagesConfig.COLUMNNOMBRE);
+                String region = rs.getString(MessagesConfig.COLUMNREGION);
+                String ciudad = rs.getString(MessagesConfig.COLUMNCIUDAD);
+                int distincion = rs.getInt(MessagesConfig.COLUMNDISTINCION);
+                String direccion = rs.getString(MessagesConfig.COLUMNDIRECCION);
+                double precio_min = rs.getDouble(MessagesConfig.COLUMNPRMIN);
+                double precio_max = rs.getDouble(MessagesConfig.COLUMNPRMAX);
+                String cocina = rs.getString(MessagesConfig.COLUMNCOCINA);
+                String telefono = rs.getString(MessagesConfig.COLUMNTELEFONO);
+                String web = rs.getString(MessagesConfig.COLUMNWEB);
+
+                restaurantes.add(new Restaurantes(nombre, region, ciudad, distincion, direccion, precio_min, precio_max, cocina, telefono, web));
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            finConnect(con, stmt, rs);
+        }
+
+        return restaurantes;
+    }
+
     private void finConnect(Connection con, Statement stmt, ResultSet rs) {
         try {
             if (rs != null) rs.close();
@@ -282,4 +368,39 @@ public class RestaurantesPersistencia {
         }
     }
 
+    public void modificarRestaurante(String nombre, String region, String ciudad, int distincion, String direccion, double precioMin, double precioMax, String cocina, String telefono, String web) {
+        String query = "UPDATE " + MessagesConfig.BD_TABLA + " SET "
+                + MessagesConfig.COLUMNREGION + " = ? , "
+                + MessagesConfig.COLUMNCIUDAD + " = ? , "
+                + MessagesConfig.COLUMNDISTINCION + " = ? , "
+                + MessagesConfig.COLUMNDIRECCION + " = ? , "
+                + MessagesConfig.COLUMNPRMIN + " = ? , "
+                + MessagesConfig.COLUMNPRMAX + " = ? , "
+                + MessagesConfig.COLUMNCOCINA + " = ? , "
+                + MessagesConfig.COLUMNTELEFONO + " = ? , "
+                + MessagesConfig.COLUMNWEB + " = ? "
+                + "WHERE " + MessagesConfig.COLUMNNOMBRE + " = ?;";
+
+        Connection con = null;
+        PreparedStatement stmt = null;
+        try {
+            con = db.getConexion();
+            stmt = con.prepareStatement(query);
+            stmt.setString(1, region);
+            stmt.setString(2, ciudad);
+            stmt.setInt(3, distincion);
+            stmt.setString(4, direccion);
+            stmt.setDouble(5, precioMin);
+            stmt.setDouble(6, precioMax);
+            stmt.setString(7, cocina);
+            stmt.setString(8, telefono);
+            stmt.setString(9, web);
+            stmt.setString(10, nombre);
+            stmt.executeUpdate();
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            finConnect(con, stmt, null);
+        }
+    }
 }

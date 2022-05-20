@@ -3,6 +3,7 @@ package com.github.alexeses.gui;
 import com.github.alexeses.control.CMichelin;
 import com.github.alexeses.model.Restaurantes;
 import com.github.alexeses.persistencia.MessagesConfig;
+import com.github.alexeses.persistencia.RestaurantesPersistencia;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -22,12 +23,23 @@ public class VConsultas extends JPanel {
     private JButton btnBorrar;
     private JPanel jpTitulo;
     private DefaultTableModel model;
-
+    private RestaurantesPersistencia rP = new RestaurantesPersistencia();
 
     public VConsultas() {
         add(mainConsultas);
         createTable();
+        configBox();
     }
+
+    private void configBox() {
+
+        ArrayList<String> regiones = rP.getRegiones();
+
+        for (String r : regiones) {
+            cmbxRegion.addItem(r);
+        }
+    }
+
     public void updateTable(ArrayList<Restaurantes> restaurantes) {
         model.setRowCount(0); // Limpia la table
         // model.getDataVector().clear(); // Método 2 para limpiar la table
@@ -50,7 +62,6 @@ public class VConsultas extends JPanel {
         model.addColumn(MessagesConfig.COLUMNDISTINCION);
         model.addColumn(MessagesConfig.COLUMNDIRECCION);
         model.addColumn(MessagesConfig.COLUMNPR);
-        //model.addColumn(MessagesConfig.COLUMNPRMAX);
         model.addColumn(MessagesConfig.COLUMNCOCINA);
         model.addColumn(MessagesConfig.COLUMNTELEFONO);
         model.addColumn(MessagesConfig.COLUMNWEB);
@@ -77,7 +88,6 @@ public class VConsultas extends JPanel {
         return tblResturantes;
     }
 
-
     public JPanel getJpTabla() {
         return jpTabla;
     }
@@ -86,8 +96,6 @@ public class VConsultas extends JPanel {
 
         int row = tblResturantes.getSelectedRow();
         String id = tblResturantes.getModel().getValueAt(row, 0).toString();
-
-        System.out.println(id);
 
         return id;
     }

@@ -33,7 +33,7 @@ public class VModRestaurante extends JPanel {
     private JButton btnGuardar;
     private JButton btnCancelar;
     private JPanel mainPanel;
-    private RestaurantesPersistencia rP = new RestaurantesPersistencia();
+    private final RestaurantesPersistencia rP = new RestaurantesPersistencia();
 
     public VModRestaurante() {
         add(mainPanel);

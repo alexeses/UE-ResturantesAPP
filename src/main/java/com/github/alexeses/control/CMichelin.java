@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
-
 public class CMichelin implements ActionListener {
 
     VConsultas vC;
@@ -19,7 +18,6 @@ public class CMichelin implements ActionListener {
     VAddRestaurante vAR;
     VModRestaurante vMR;
     RestaurantesPersistencia rp;
-
 
     public CMichelin(VConsultas vC, VMenu vM, VWelcome vW, VAddRestaurante vAR, VModRestaurante vMR, RestaurantesPersistencia rp) {
         this.vC = vC;

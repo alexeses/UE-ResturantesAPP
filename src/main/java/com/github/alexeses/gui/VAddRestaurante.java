@@ -1,6 +1,7 @@
 package com.github.alexeses.gui;
 
 import com.github.alexeses.control.CMichelin;
+import com.github.alexeses.persistencia.MessagesConfig;
 import com.github.alexeses.persistencia.RestaurantesPersistencia;
 
 import javax.swing.*;
@@ -32,6 +33,7 @@ public class VAddRestaurante extends JPanel {
     private JButton btnBorrar;
     private JPanel mainAdd;
     private RestaurantesPersistencia rP = new RestaurantesPersistencia();
+    MessagesConfig msg;
 
     public VAddRestaurante() {
         add(mainAdd);
@@ -44,6 +46,10 @@ public class VAddRestaurante extends JPanel {
     }
 
     public void config() {
+
+        btnBorrar.setText(msg.BTN_REG_BORRAR);
+        btnGuardar.setText(msg.BTN_REG_GUARDAR);
+
         spnDistincion.setModel(new SpinnerNumberModel(0, 0, 3, 1)); // Mínimo y máximo
         ArrayList<String> regiones = rP.getRegiones();
 
@@ -58,7 +64,7 @@ public class VAddRestaurante extends JPanel {
         }
     }
 
-    public void borrarCampos() {
+    public void clearFields() {
         txtNombre.setText("");
         txtCiudad.setText("");
         txtDireccion.setText("");
@@ -66,6 +72,9 @@ public class VAddRestaurante extends JPanel {
         txtPrMax.setText("");
         txtTelefono.setText("");
         txtWeb.setText("");
+        cmbCocina.setSelectedIndex(0);
+        cmbxRegion.setSelectedIndex(0);
+        spnDistincion.setValue(0);
     }
 
     public JTextField getTxtNombre() {
@@ -106,18 +115,5 @@ public class VAddRestaurante extends JPanel {
 
     public JTextField getTxtWeb() {
         return txtWeb;
-    }
-
-    public void clearFields() {
-        txtNombre.setText("");
-        txtCiudad.setText("");
-        txtDireccion.setText("");
-        txtPrMin.setText("");
-        txtPrMax.setText("");
-        txtTelefono.setText("");
-        txtWeb.setText("");
-        cmbCocina.setSelectedIndex(0);
-        cmbxRegion.setSelectedIndex(0);
-        spnDistincion.setValue(0);
     }
 }

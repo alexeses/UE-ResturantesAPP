@@ -84,20 +84,25 @@ public class VModRestaurante extends JPanel {
 
         ArrayList<Restaurantes> restaurantes = rP.getRestNombre(nombre);
 
-        for (Restaurantes r : restaurantes) {
-            txtNombre.setText(r.getNombre());
-            cmbxRegion.setSelectedItem(r.getRegion());
-            txtCiudad.setText(r.getCiudad());
-            txtDireccion.setText(r.getDireccion());
-            cmbxCocina.setSelectedItem(r.getCocina());
-            spnDistincion.setValue(r.getDistintion());
-            txtPrMin.setText(String.valueOf(r.getPrecio_min()));
-            txtPRMax.setText(String.valueOf(r.getPrecio_max()));
-            txtTelefono.setText(r.getTelefono());
-            txtWeb.setText(r.getWeb());
-        }
+        if (rP.getRestNombre(nombre) != null) {
+            for (Restaurantes r : restaurantes) {
+                txtNombre.setText(r.getNombre());
+                cmbxRegion.setSelectedItem(r.getRegion());
+                txtCiudad.setText(r.getCiudad());
+                txtDireccion.setText(r.getDireccion());
+                cmbxCocina.setSelectedItem(r.getCocina());
+                spnDistincion.setValue(r.getDistintion());
+                txtPrMin.setText(String.valueOf(r.getPrecio_min()));
+                txtPRMax.setText(String.valueOf(r.getPrecio_max()));
+                txtTelefono.setText(r.getTelefono());
+                txtWeb.setText(r.getWeb());
+            }
 
-        activarCeldas();
+            activarCeldas();
+        } else {
+            JOptionPane.showMessageDialog(null, "El restaurante " + nombre + " no existe" + "\n"
+                    + "Por favor, introduzca un nombre correcto", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
 
     }
 

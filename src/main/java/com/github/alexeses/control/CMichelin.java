@@ -60,11 +60,12 @@ public class CMichelin implements ActionListener {
                     JOptionPane.showMessageDialog(vC, "No se ha seleccionado ningún restaurante",
                             "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            } else if (e.getActionCommand().contains("Guardar")) {
+
+            } else if (e.getActionCommand().equals(msg.BTN_REG_GUARDAR)) {
                 guardarRestaurante();
-            } else if (e.getActionCommand().contains("Limpiar")) {
+            } else if (e.getActionCommand().equals(msg.BTN_REG_BORRAR)) {
                 vAR.clearFields();
-            } else if (e.getActionCommand().contains("Encontrar")) {
+            } else if (e.getActionCommand().equals(msg.BTN_MOD_BUSCAR)) {
                 String nombre = vMR.getTxtNombre().getText();
 
                 if (nombre.isEmpty()) {
@@ -73,9 +74,10 @@ public class CMichelin implements ActionListener {
                 } else {
                     vMR.rellenarRest(nombre);
                 }
-            } else if (e.getActionCommand().contains("Cancelar")) {
+
+            } else if (e.getActionCommand().contains(msg.BTN_MOD_CANCELAR)) {
                     vMR.clearAllFields();
-            } else if (e.getActionCommand().contains("Modificar")) {
+            } else if (e.getActionCommand().contains(msg.BTN_MOD_MODIFICAR)) {
                 modificarRestaurante();
             }
         }

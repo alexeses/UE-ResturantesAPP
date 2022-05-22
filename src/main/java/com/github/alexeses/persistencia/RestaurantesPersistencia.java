@@ -307,6 +307,10 @@ public class RestaurantesPersistencia {
             finConnect(con, pstmt, rs);
         }
 
+        if (restaurantes.isEmpty()) {
+            return null;
+        }
+
         return restaurantes;
     }
 

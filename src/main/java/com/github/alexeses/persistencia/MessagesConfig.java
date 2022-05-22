@@ -26,7 +26,7 @@ public class MessagesConfig {
     public static final String BTN_MENU_MODIFICACION = "Modificaciones";
 
     // GESTIÓN BOTONES - MENÚ DE MODIFICACIÓN
-    public static final String BTN_MOD_BUSCAR = "Buscar";
+    public static final String BTN_MOD_BUSCAR = "Encontrar";
     public static final String BTN_MOD_MODIFICAR = "Modificar";
     public static final String BTN_MOD_CANCELAR = "Cancelar";
 
@@ -34,4 +34,7 @@ public class MessagesConfig {
     public static final String BTN_CONS_BUSCAR = "Buscar";
     public static final String BTN_CONS_BORRAR = "Borrar";
 
+    // GESTIÓN BOTONES - MENÚ DE REGISTROS
+    public static final String BTN_REG_GUARDAR = "Guardar";
+    public static final String BTN_REG_BORRAR = "Limpiar";
 }

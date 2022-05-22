@@ -23,26 +23,26 @@
           <grid id="938fd" class="javax.swing.JMenu" binding="menu01" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
             <constraints/>
             <properties>
-              <text value="Mantenimiento Resturantes"/>
+              <text value="Lorem"/>
             </properties>
             <border type="none"/>
             <children>
               <component id="7eee" class="javax.swing.JMenuItem" binding="opc1">
                 <constraints/>
                 <properties>
-                  <text value=""/>
+                  <text value="Lorem"/>
                 </properties>
               </component>
               <component id="47429" class="javax.swing.JMenuItem" binding="opc2">
                 <constraints/>
                 <properties>
-                  <text value=""/>
+                  <text value="Lorem"/>
                 </properties>
               </component>
               <component id="c361d" class="javax.swing.JMenuItem" binding="opc3">
                 <constraints/>
                 <properties>
-                  <text value=""/>
+                  <text value="Lorem"/>
                 </properties>
               </component>
             </children>

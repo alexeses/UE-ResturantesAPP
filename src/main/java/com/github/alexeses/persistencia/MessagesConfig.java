@@ -19,5 +19,19 @@ public class MessagesConfig {
     public static final String[] REGION = {"Andalucía", "Aragón", "Asturias", "Islas Baleares", "Cantabria",
             "Islas Canarias", "Castilla - La Mancha", "Castilla y León", "Cataluña", "Galicia", "Extremadura",
             "Madrid", "Murcia", "Navarra", "Pais Vasco", "La Rioja", "Comunidad Valenciana"};
+    // GESTIÓN BOTONES - MENU GENERAL (NAVBAR)
+    public static final String BTN_MENU_GENERAL = "Menu de Gestión";
+    public static final String BTN_MENU_CONSULTA = "Consultas";
+    public static final String BTN_MENU_REGISTRO = "Registros";
+    public static final String BTN_MENU_MODIFICACION = "Modificaciones";
+
+    // GESTIÓN BOTONES - MENÚ DE MODIFICACIÓN
+    public static final String BTN_MOD_BUSCAR = "Buscar";
+    public static final String BTN_MOD_MODIFICAR = "Modificar";
+    public static final String BTN_MOD_CANCELAR = "Cancelar";
+
+    // GESTION BOTONES - MENÚ DE CONSULTAS
+    public static final String BTN_CONS_BUSCAR = "Buscar";
+    public static final String BTN_CONS_BORRAR = "Borrar";
 
 }

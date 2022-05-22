@@ -1,6 +1,7 @@
 package com.github.alexeses.gui;
 
 import com.github.alexeses.control.CMichelin;
+import com.github.alexeses.persistencia.MessagesConfig;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,11 +13,9 @@ public class VMenu extends JFrame {
     private JMenuItem opc2;
     private JMenuItem opc3;
     private JScrollPane scrPanel;
-    public final static String OPC1 = "Consulta de Resturantes";
-    public final static String OPC2 = "Registro de Resturantes";
-    public final static String OPC3 = "Modificacion de Resturantes";
     public final static int ANCHO = 800;
     public final static int ALTO = 600;
+    MessagesConfig msg;
 
     public VMenu() {
         add(mainMenu);
@@ -31,11 +30,13 @@ public class VMenu extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setTitle("Menu Michelin");
+        menu01.setText(msg.BTN_MENU_GENERAL);
+        opc1.setText(msg.BTN_MENU_CONSULTA);
+        opc2.setText(msg.BTN_MENU_REGISTRO);
+        opc3.setText(msg.BTN_MENU_MODIFICACION);
         setSize(ANCHO, ALTO);
         centrarVentana();
-        opc1.setText(OPC1);
-        opc2.setText(OPC2);
-        opc3.setText(OPC3);
+
     }
 
     public void setControlador(CMichelin controlador) {

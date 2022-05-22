@@ -24,6 +24,7 @@ public class VConsultas extends JPanel {
     private JPanel jpTitulo;
     private DefaultTableModel model;
     private RestaurantesPersistencia rP = new RestaurantesPersistencia();
+    MessagesConfig m;
 
     public VConsultas() {
         add(mainConsultas);
@@ -32,6 +33,9 @@ public class VConsultas extends JPanel {
     }
 
     private void configBox() {
+
+        btnBorrar.setText(m.BTN_CONS_BORRAR);
+        btnBuscar.setText(m.BTN_CONS_BUSCAR);
 
         ArrayList<String> regiones = rP.getRegiones();
 

@@ -2,6 +2,7 @@ package com.github.alexeses.gui;
 
 import com.github.alexeses.control.CMichelin;
 import com.github.alexeses.model.Restaurantes;
+import com.github.alexeses.persistencia.MessagesConfig;
 import com.github.alexeses.persistencia.RestaurantesPersistencia;
 
 import javax.swing.*;
@@ -34,6 +35,7 @@ public class VModRestaurante extends JPanel {
     private JButton btnCancelar;
     private JPanel mainPanel;
     private final RestaurantesPersistencia rP = new RestaurantesPersistencia();
+    MessagesConfig msg;
 
     public VModRestaurante() {
         add(mainPanel);
@@ -59,6 +61,11 @@ public class VModRestaurante extends JPanel {
         spnDistincion.setEnabled(false);
 
         spnDistincion.setModel(new SpinnerNumberModel(1, 1, 3, 1));
+
+        btnBuscar.setText(msg.BTN_MOD_BUSCAR);
+        btnCancelar.setText(msg.BTN_MOD_CANCELAR);
+        btnGuardar.setText(msg.BTN_MOD_MODIFICAR);
+
     }
 
     public void setControlador(CMichelin controlador) {
@@ -130,6 +137,19 @@ public class VModRestaurante extends JPanel {
         cmbxRegion.setEnabled(false);
     }
 
+    public void clearFields() {
+        txtNombre.setText("");
+        txtDireccion.setText("");
+        txtCiudad.setText("");
+        txtPrMin.setText("");
+        txtPRMax.setText("");
+        txtTelefono.setText("");
+        txtWeb.setText("");
+        spnDistincion.setValue(1);
+        cmbxRegion.setSelectedIndex(0);
+        cmbxCocina.setSelectedIndex(0);
+    }
+
     public JTextField getTxtNombre() {
         return txtNombre;
     }
@@ -170,16 +190,4 @@ public class VModRestaurante extends JPanel {
         return txtWeb;
     }
 
-    public void clearFields() {
-        txtNombre.setText("");
-        txtDireccion.setText("");
-        txtCiudad.setText("");
-        txtPrMin.setText("");
-        txtPRMax.setText("");
-        txtTelefono.setText("");
-        txtWeb.setText("");
-        spnDistincion.setValue(1);
-        cmbxRegion.setSelectedIndex(0);
-        cmbxCocina.setSelectedIndex(0);
-    }
 }

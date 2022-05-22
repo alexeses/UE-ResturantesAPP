@@ -2,6 +2,7 @@ package com.github.alexeses.control;
 
 import com.github.alexeses.gui.*;
 import com.github.alexeses.model.Restaurantes;
+import com.github.alexeses.persistencia.MessagesConfig;
 import com.github.alexeses.persistencia.RestaurantesPersistencia;
 
 import javax.swing.*;
@@ -10,14 +11,13 @@ import java.awt.event.ActionListener;
 import java.util.Objects;
 
 public class CMichelin implements ActionListener {
-
     VConsultas vC;
     VMenu vM;
     VWelcome vW;
-    //FuenteDatos datos;
     VAddRestaurante vAR;
     VModRestaurante vMR;
     RestaurantesPersistencia rp;
+    MessagesConfig msg;
 
     public CMichelin(VConsultas vC, VMenu vM, VWelcome vW, VAddRestaurante vAR, VModRestaurante vMR, RestaurantesPersistencia rp) {
         this.vC = vC;
@@ -32,7 +32,7 @@ public class CMichelin implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() instanceof JButton) {
-            if (e.getActionCommand().contains("Buscar")) {
+            if (e.getActionCommand().equals(msg.BTN_CONS_BUSCAR)) {
 
                 String region = Objects.requireNonNull(vC.getCmbxRegion().getSelectedItem()).toString();
                 Integer distincion = vC.getCmbxDistincion().getSelectedIndex();
@@ -40,22 +40,25 @@ public class CMichelin implements ActionListener {
                 vC.updateTable(rp.getRestaurantes(region, distincion));
 
                 if (vC.getTblResturantes().getRowCount() == 0) {
-                    JOptionPane.showMessageDialog(vC, "No se encontraron restaurantes con esos filtros", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(vC, "No se encontraron restaurantes con esos filtros",
+                            "Error", JOptionPane.ERROR_MESSAGE);
                 }
 
-            } else if (e.getActionCommand().contains("Borrar")) {
+            } else if (e.getActionCommand().equals(msg.BTN_CONS_BORRAR)) {
 
                 if (vC.getTblResturantes().getSelectedRow() != -1) {
                     int row = vC.getTblResturantes().getSelectedRow();
                     String nombre = vC.getTblResturantes().getValueAt(row, 0).toString();
 
-                    int opcion = JOptionPane.showConfirmDialog(vC, "¿Está seguro que desea borrar el restaurante " + nombre + "?", "Borrar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    int opcion = JOptionPane.showConfirmDialog(vC, "¿Desea borrar el restaurante " + nombre + "?",
+                            "Borrar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
                     if (opcion == JOptionPane.YES_OPTION) {
                         rp.borrarFila(vC.getSelecction());
                     }
                 } else if (vC.getTblResturantes().getRowCount() == 0) {
-                    JOptionPane.showMessageDialog(vC, "No se ha seleccionado ningún restaurante", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(vC, "No se ha seleccionado ningún restaurante",
+                            "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else if (e.getActionCommand().contains("Guardar")) {
                 guardarRestaurante();
@@ -65,7 +68,8 @@ public class CMichelin implements ActionListener {
                 String nombre = vMR.getTxtNombre().getText();
 
                 if (nombre.isEmpty()) {
-                    JOptionPane.showMessageDialog(vMR, "No se ha introducido ningún nombre", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(vMR, "No se ha introducido ningún nombre",
+                            "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     vMR.rellenarRest(nombre);
                 }
@@ -77,12 +81,12 @@ public class CMichelin implements ActionListener {
         }
 
         if (e.getSource() instanceof JMenuItem) {
-            if (e.getActionCommand().contains(VMenu.OPC1)) {
+            if (e.getActionCommand().equalsIgnoreCase(msg.BTN_MENU_CONSULTA)) {
                 vM.cargarPanel(vC);
                 rp.getRegiones();
-            } else if (e.getActionCommand().contains(VMenu.OPC2)) {
+            } else if (e.getActionCommand().equalsIgnoreCase(msg.BTN_MENU_REGISTRO)) {
                 vM.cargarPanel(vAR);
-            } else if (e.getActionCommand().contains(VMenu.OPC3)) {
+            } else if (e.getActionCommand().equalsIgnoreCase(msg.BTN_MENU_MODIFICACION)) {
                 vM.cargarPanel(vMR);
             }
         }
@@ -102,7 +106,8 @@ public class CMichelin implements ActionListener {
 
         while (true) {
             if (vMR.getTxtNombre().getText().isEmpty()) {
-                JOptionPane.showMessageDialog(vMR, "El nombre del restaurante no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(vMR, "El nombre del restaurante no puede estar vacío",
+                        "Error", JOptionPane.ERROR_MESSAGE);
                 break;
             } else {
                 nombre = vMR.getTxtNombre().getText();
@@ -111,7 +116,8 @@ public class CMichelin implements ActionListener {
             region = Objects.requireNonNull(vMR.getCmbxRegion().getSelectedItem()).toString();
 
             if (vMR.getTxtCiudad().getText().isEmpty()) {
-                JOptionPane.showMessageDialog(vMR, "La ciudad no puede estar vacía", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(vMR, "La ciudad no puede estar vacía",
+                        "Error", JOptionPane.ERROR_MESSAGE);
                 break;
             } else {
                 ciudad = vMR.getTxtCiudad().getText();
@@ -120,19 +126,24 @@ public class CMichelin implements ActionListener {
             direccion = vMR.getTxtDireccion().getText();
 
             if (vMR.getTxtPrMin().getText().isEmpty() || vMR.getTxtPRMax().getText().isEmpty()) {
-                JOptionPane.showMessageDialog(vMR, "El precio mínimo y máximo no pueden estar vacíos", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(vMR, "El precio mínimo y máximo no pueden estar vacíos",
+                        "Error", JOptionPane.ERROR_MESSAGE);
                 break;
             } else if (Double.parseDouble(vMR.getTxtPrMin().getText()) > Double.parseDouble(vMR.getTxtPRMax().getText())) {
-                JOptionPane.showMessageDialog(vMR, "El precio mínimo no puede ser mayor que el precio máximo", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(vMR, "El precio mínimo no puede ser mayor que el precio máximo",
+                        "Error", JOptionPane.ERROR_MESSAGE);
                 break;
             } else if (Double.parseDouble(vMR.getTxtPrMin().getText()) < 0 || Double.parseDouble(vMR.getTxtPRMax().getText()) < 0) {
-                JOptionPane.showMessageDialog(vMR, "El precio mínimo y máximo no pueden ser negativos", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(vMR, "El precio mínimo y máximo no pueden ser negativos",
+                        "Error", JOptionPane.ERROR_MESSAGE);
                 break;
             } else if (Double.parseDouble(vMR.getTxtPrMin().getText()) == 0 || Double.parseDouble(vMR.getTxtPRMax().getText()) == 0) {
-                JOptionPane.showMessageDialog(vMR, "El precio mínimo y máximo no pueden ser 0", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(vMR, "El precio mínimo y máximo no pueden ser 0",
+                        "Error", JOptionPane.ERROR_MESSAGE);
                 break;
             } else if (vMR.getTxtPrMin().getText().matches("\\d+") && !vMR.getTxtPRMax().getText().matches("\\d+") || vMR.getTxtPRMax().getText().matches("\\d+") && !vMR.getTxtPrMin().getText().matches("\\d+")) {
-                JOptionPane.showMessageDialog(vMR, "El precio mínimo y máximo deben ser números", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(vMR, "El precio mínimo y máximo deben ser números",
+                        "Error", JOptionPane.ERROR_MESSAGE);
                 break;
             } else {
                 precioMin = Double.parseDouble(vMR.getTxtPrMin().getText());
@@ -143,17 +154,20 @@ public class CMichelin implements ActionListener {
             web = vMR.getTxtWeb().getText();
 
             if (!vMR.getTxtTelefono().getText().matches("\\d+")) {
-                JOptionPane.showMessageDialog(vMR, "El teléfono debe ser un número", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(vMR, "El teléfono debe ser un número",
+                        "Error", JOptionPane.ERROR_MESSAGE);
                 break;
             } else if (vMR.getTxtTelefono().getText().length() != 9) {
-                JOptionPane.showMessageDialog(vMR, "El teléfono debe tener 9 dígitos", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(vMR, "El teléfono debe tener 9 dígitos",
+                        "Error", JOptionPane.ERROR_MESSAGE);
                 break;
             } else {
                 telefono = vMR.getTxtTelefono().getText();
             }
 
             rp.modificarRestaurante(nombre, region, ciudad, distincion, direccion, precioMin, precioMax, cocina, telefono, web);
-            JOptionPane.showMessageDialog(vMR, "Restaurante modificado correctamente", "Modificación", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(vMR, "Restaurante modificado correctamente",
+                    "Modificación", JOptionPane.INFORMATION_MESSAGE);
             vMR.clearFields();
 
         }

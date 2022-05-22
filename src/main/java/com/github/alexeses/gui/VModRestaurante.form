@@ -150,7 +150,7 @@
           <grid row="1" column="2" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Encontrar"/>
+          <text value="Example"/>
         </properties>
       </component>
       <component id="63599" class="javax.swing.JLabel" binding="lblTelefono">
@@ -190,7 +190,7 @@
           <grid row="6" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Modificar"/>
+          <text value="Example"/>
         </properties>
       </component>
       <component id="1713c" class="javax.swing.JButton" binding="btnCancelar">
@@ -198,7 +198,7 @@
           <grid row="6" column="4" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Cancelar"/>
+          <text value="Example"/>
         </properties>
       </component>
     </children>

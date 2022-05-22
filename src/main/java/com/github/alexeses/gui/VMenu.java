@@ -13,6 +13,7 @@ public class VMenu extends JFrame {
     private JMenuItem opc2;
     private JMenuItem opc3;
     private JScrollPane scrPanel;
+    private JMenu menu02;
     public final static int ANCHO = 800;
     public final static int ALTO = 600;
     MessagesConfig msg;
@@ -31,6 +32,7 @@ public class VMenu extends JFrame {
         setLocationRelativeTo(null);
         setTitle("Menu Michelin");
         menu01.setText(msg.BTN_MENU_GENERAL);
+        menu02.setText(msg.BTN_MENU_SALIR);
         opc1.setText(msg.BTN_MENU_CONSULTA);
         opc2.setText(msg.BTN_MENU_REGISTRO);
         opc3.setText(msg.BTN_MENU_MODIFICACION);

@@ -21,6 +21,7 @@ public class MessagesConfig {
             "Madrid", "Murcia", "Navarra", "Pais Vasco", "La Rioja", "Comunidad Valenciana"};
     // GESTIÓN BOTONES - MENU GENERAL (NAVBAR)
     public static final String BTN_MENU_GENERAL = "Menu de Gestión";
+    public static final String BTN_MENU_SALIR = "Salir";
     public static final String BTN_MENU_CONSULTA = "Consultas";
     public static final String BTN_MENU_REGISTRO = "Registros";
     public static final String BTN_MENU_MODIFICACION = "Modificaciones";

@@ -92,6 +92,17 @@ public class CMichelin implements ActionListener {
                 vM.cargarPanel(vMR);
             }
         }
+
+        if (e.getSource() instanceof JMenu) {
+            if (e.getActionCommand().equalsIgnoreCase(msg.BTN_MENU_SALIR)) {
+                System.out.println("SALIR");
+                int opcion = JOptionPane.showConfirmDialog(vM, "¿Desea salir?",
+                        "Salir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (opcion == JOptionPane.YES_OPTION) {
+                    System.exit(0);
+                }
+            }
+        }
     }
 
     private void modificarRestaurante() {

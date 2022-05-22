@@ -47,6 +47,14 @@
               </component>
             </children>
           </grid>
+          <grid id="63731" class="javax.swing.JMenu" binding="menu02" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints/>
+            <properties>
+              <text value="Lorem"/>
+            </properties>
+            <border type="none"/>
+            <children/>
+          </grid>
         </children>
       </grid>
       <scrollpane id="cab61" binding="scrPanel">
